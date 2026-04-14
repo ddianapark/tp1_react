@@ -5,14 +5,14 @@ import Subtitulo from './components/Subtitulo.jsx'
 import { useState } from 'react'
 
 const initialCitas = [
-  { id: 1, nombre: "Nina", propietario: "Martin", fecha: "2021-08-05", hora: "08:20", sintomas: "Le duele la pierna" },
-  { id: 2, nombre: "Sifon", propietario: "Flecha", fecha: "2023-08-05", hora: "09:24", sintomas: "Duerme mucho" },
-  { id: 3, nombre: "Floki", propietario: "Ari", fecha: "2023-08-05", hora: "16:15", sintomas: "No está comiendo" }
+  { id: 0, nombre: "Nina", propietario: "Martin", fecha: "2021-08-05", hora: "08:20", sintomas: "Le duele la pierna" },
+  { id: 1, nombre: "Sifon", propietario: "Flecha", fecha: "2023-08-05", hora: "09:24", sintomas: "Duerme mucho" },
+  { id: 2, nombre: "Floki", propietario: "Ari", fecha: "2023-08-05", hora: "16:15", sintomas: "No está comiendo" }
 ]
 
 function App() {
   const [citas, setCitas] = useState(initialCitas);
-  const [nextId, setNextId] = useState(4); // Para generar IDs únicos
+  const [nextId, setNextId] = useState(4);
 
   const addCita = (cita) => {
     const nuevaCita = { ...cita, id: nextId };
@@ -21,7 +21,12 @@ function App() {
   };
 
   const deleteCita = (id) => {
-    setCitas(citas.filter(cita => cita.id !== id));
+    const nuevasCitas = [...citas];
+    const index = nuevasCitas.findIndex(cita => cita.id === id);
+    if (index !== -1) {
+      nuevasCitas.splice(index, 1);
+      setCitas(nuevasCitas);
+    }
   };
 
   return (
