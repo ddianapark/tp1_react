@@ -1,4 +1,13 @@
-export default function Cita({ nombre, propietario, fecha, hora, sintomas }) {
+import './Cita.css'
+
+export default function Cita({ cita: { id, nombre, propietario, fecha, hora, sintomas }, onEliminar }){
+    const handleEliminar = () => {
+        const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar esta cita?');
+        if (confirmacion) {
+            onEliminar(id);
+        }
+    }
+    
     return (
         <div className="cita">
             <p>Mascota: <span>{nombre}</span></p>
@@ -6,7 +15,7 @@ export default function Cita({ nombre, propietario, fecha, hora, sintomas }) {
             <p>Fecha: <span>{fecha}</span></p>
             <p>Hora: <span>{hora}</span></p>
             <p>Sintomas: <span>{sintomas}</span></p>
-            <button className="button elimnar u-full-width">Eliminar ×</button>
+            <button className="button eliminar u-full-width" id='buttonElim' onClick={handleEliminar}>Eliminar ×</button>
         </div>
     )
 }
